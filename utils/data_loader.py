@@ -25,3 +25,4 @@ class data_loader:
             logger.error(
                 f"error while loading data {e}"
             )
+            raise
