@@ -1,5 +1,4 @@
 """
 feature engineering: 
-    1. feature selection
-    2. feature creation
+    1. feature creation
 """

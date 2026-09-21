@@ -1,7 +1,5 @@
 """
 data manipulation:
-    1. fill null values
-    2. fix skewness
-    3. drop duplicates
-    
+    1. drop duplicates
+    2. drop features
 """

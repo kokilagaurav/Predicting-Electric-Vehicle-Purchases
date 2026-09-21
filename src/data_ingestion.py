@@ -1,3 +1,3 @@
 """
-Data ingestion module for loading and preprocessing data.
+Data ingestion module for loading data from csv files
 """
