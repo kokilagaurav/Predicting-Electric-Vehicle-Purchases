@@ -1,7 +1,10 @@
 *.csv
 *.env
-*.logs
+C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\logs
 
 
 
 
+# Python cache
+__pycache__/
+*.py[cod]
