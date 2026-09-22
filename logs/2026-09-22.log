@@ -1,0 +1,4 @@
+2026-09-22 13:20:44,884 - src.data_ingestion - INFO - data ingestion is started
+2026-09-22 13:20:44,884 - utils.data_loader - INFO - data loading started
+2026-09-22 13:20:45,561 - utils.data_loader - INFO - data loading complete, shape :(668665, 15)
+2026-09-22 13:20:45,561 - src.data_ingestion - INFO - data ingestion completed

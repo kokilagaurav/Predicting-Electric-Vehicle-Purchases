@@ -8,7 +8,7 @@ model_artifacts
 
 from pathlib import Path
 
-
+@staticmethod
 class ModelConfig:
     BASE_DIR = Path(__file__).resolve().parent.parent
 

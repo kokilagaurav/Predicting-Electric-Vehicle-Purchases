@@ -4,7 +4,6 @@ data configurations that are used to load the data from csv files and save the p
 
 from pathlib import Path
 
-
 class DataConfig:
     BASE_DIR = Path(__file__).resolve().parent.parent
 
