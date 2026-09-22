@@ -1,0 +1,35 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -m src.data_ingestion
+    deps:
+    - path: configs/data_configs.py
+      hash: md5
+      md5: 80061e3e3e563d3df38d3db928424aea
+      size: 1036
+      isexec: true
+    - path: data/raw/test.csv
+      hash: md5
+      md5: 561b4fa0ab35149606a0591f24209931
+      size: 18298347
+      isexec: true
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 57201b1bef73bc87476ac6d4a157d170
+      size: 44707646
+      isexec: true
+    - path: src/data_ingestion.py
+      hash: md5
+      md5: 7d0492a952f290223a0f362cbec9ae27
+      size: 776
+      isexec: true
+    - path: utils/data_loader.py
+      hash: md5
+      md5: e719faf58e3d925e63b324a41f147696
+      size: 608
+      isexec: true
+    - path: utils/logger.py
+      hash: md5
+      md5: 62119f6ded04213749ebf90b10ae7434
+      size: 735
+      isexec: true

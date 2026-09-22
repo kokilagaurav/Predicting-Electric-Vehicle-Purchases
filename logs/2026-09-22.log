@@ -2,3 +2,11 @@
 2026-09-22 09:11:01,593 - utils.data_loader - INFO - data loading started
 2026-09-22 09:11:02,435 - utils.data_loader - INFO - data loading complete, shape :(668665, 15)
 2026-09-22 09:11:02,436 - src.data_ingestion - INFO - data ingestion completed
+2026-09-22 09:23:42,951 - __main__ - INFO - data ingestion is started
+2026-09-22 09:23:42,951 - utils.data_loader - INFO - data loading started
+2026-09-22 09:23:43,766 - utils.data_loader - INFO - data loading complete, shape :(668665, 15)
+2026-09-22 09:23:43,769 - __main__ - INFO - data ingestion completed
+2026-09-22 09:24:47,643 - __main__ - INFO - data ingestion is started
+2026-09-22 09:24:47,644 - utils.data_loader - INFO - data loading started
+2026-09-22 09:24:48,509 - utils.data_loader - INFO - data loading complete, shape :(668665, 15)
+2026-09-22 09:24:48,510 - __main__ - INFO - data ingestion completed
