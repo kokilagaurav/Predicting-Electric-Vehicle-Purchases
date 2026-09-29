@@ -1,1 +1,18 @@
 # it has all the parameters of the project: hyperparameters
+
+data_manipulation:
+
+  train_drop_features:
+    - Will_Buy_EV_num
+    - Home_Charging_Possible
+    - Subsidy_Available
+    - No_Home_Charging
+    - Gender
+
+  test_drop_features:
+    - Home_Charging_Possible
+    - Subsidy_Available
+    - No_Home_Charging
+    - Gender
+
+  drop_duplicates: true

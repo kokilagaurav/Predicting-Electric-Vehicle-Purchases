@@ -72,3 +72,58 @@ stages:
       hash: md5
       md5: 01f99f6d16a6c4202025292e034d7d3a
       size: 84257395
+  data_manipulation:
+    cmd: python -m src.data_manipulation
+    deps:
+    - path: configs/data_configs.py
+      hash: md5
+      md5: c45f31a8f59fc485ca531546b3b58657
+      size: 2241
+    - path: data/interim/test.csv
+      hash: md5
+      md5: db6aaf8b7f03b9b8e8ff4f6b9b45a033
+      size: 35244722
+    - path: data/interim/train.csv
+      hash: md5
+      md5: 01f99f6d16a6c4202025292e034d7d3a
+      size: 84257395
+    - path: src/data_manipulation.py
+      hash: md5
+      md5: 332c6929373e6dcb86abec4568fce594
+      size: 5475
+    - path: utils/data_loader.py
+      hash: md5
+      md5: 11ee8d419b7df3c04dc9ecdff45b6ba3
+      size: 643
+    - path: utils/logger.py
+      hash: md5
+      md5: 62119f6ded04213749ebf90b10ae7434
+      size: 735
+    - path: utils/params_loader.py
+      hash: md5
+      md5: 277f6b5e02168384d3acddd6c266c08f
+      size: 816
+    params:
+      params.yaml:
+        data_manipulation:
+          train_drop_features:
+          - Will_Buy_EV_num
+          - Home_Charging_Possible
+          - Subsidy_Available
+          - No_Home_Charging
+          - Gender
+          test_drop_features:
+          - Home_Charging_Possible
+          - Subsidy_Available
+          - No_Home_Charging
+          - Gender
+          drop_duplicates: true
+    outs:
+    - path: data/processed/test_processed.csv
+      hash: md5
+      md5: 031de492013822b4ef5ab0efa1c27fa9
+      size: 30404714
+    - path: data/processed/train_processed.csv
+      hash: md5
+      md5: aae2681c8e1151846793fcbbdfabb65d
+      size: 72963389

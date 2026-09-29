@@ -32,3 +32,24 @@ stages:
     outs:
       - data/interim/train.csv
       - data/interim/test.csv
+
+
+  data_manipulation:
+
+    cmd: python -m src.data_manipulation
+
+    deps:
+      - data/interim/train.csv
+      - data/interim/test.csv
+      - src/data_manipulation.py
+      - utils/data_loader.py
+      - utils/logger.py
+      - utils/params_loader.py
+      - configs/data_configs.py
+
+    params:
+      - data_manipulation
+
+    outs:
+      - data/processed/train_processed.csv
+      - data/processed/test_processed.csv

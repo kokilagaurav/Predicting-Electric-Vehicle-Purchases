@@ -22,3 +22,21 @@
 2026-09-29 16:45:09,489 - __main__ - INFO - Feature engineered train data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\interim\train.csv
 2026-09-29 16:45:11,452 - __main__ - INFO - Feature engineered test data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\interim\test.csv
 2026-09-29 16:45:11,452 - __main__ - INFO - Feature engineering completed successfully
+2026-09-29 16:49:56,376 - utils.params_loader - INFO - Loading parameters from params.yaml
+2026-09-29 16:49:56,378 - utils.params_loader - INFO - Parameters loaded successfully
+2026-09-29 16:49:56,378 - __main__ - INFO - Data manipulation started
+2026-09-29 16:49:56,378 - utils.data_loader - INFO - data loading started
+2026-09-29 16:49:57,332 - utils.data_loader - INFO - data loading complete, shape :(668665, 25)
+2026-09-29 16:49:57,333 - utils.data_loader - INFO - data loading started
+2026-09-29 16:49:57,714 - utils.data_loader - INFO - data loading complete, shape :(286571, 24)
+2026-09-29 16:49:57,715 - __main__ - INFO - Train data shape before manipulation: (668665, 25)
+2026-09-29 16:49:57,715 - __main__ - INFO - Test data shape before manipulation: (286571, 24)
+2026-09-29 16:49:57,715 - __main__ - INFO - Dropping train features: ['Will_Buy_EV_num', 'Home_Charging_Possible', 'Subsidy_Available', 'No_Home_Charging', 'Gender']
+2026-09-29 16:49:57,761 - __main__ - INFO - Dropping test features: ['Home_Charging_Possible', 'Subsidy_Available', 'No_Home_Charging', 'Gender']
+2026-09-29 16:49:58,121 - __main__ - INFO - Duplicate rows found in train data: 0
+2026-09-29 16:49:58,517 - __main__ - INFO - Removed 0 duplicate rows
+2026-09-29 16:50:02,856 - __main__ - INFO - Processed training data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\processed\train_processed.csv
+2026-09-29 16:50:04,623 - __main__ - INFO - Processed testing data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\processed\test_processed.csv
+2026-09-29 16:50:04,623 - __main__ - INFO - Final train shape: (668665, 21)
+2026-09-29 16:50:04,623 - __main__ - INFO - Final test shape: (286571, 20)
+2026-09-29 16:50:04,623 - __main__ - INFO - Data manipulation completed successfully
