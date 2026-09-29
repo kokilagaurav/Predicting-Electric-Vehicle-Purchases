@@ -4,20 +4,45 @@
 
 This project predicts whether a customer will buy an electric vehicle using demographic, financial, commuting, vehicle, charging, and environmental features. It combines exploratory analysis, feature engineering, and model comparisons to generate purchase scores and submission files.
 
-**Current stage:** Notebook experiments are available. The next milestone is to move that work into a reusable Python pipeline; the API, frontend, and deployment workflow are planned.
+**Current stage:** The FastAPI inference service, browser frontend, and Docker startup are implemented. The reusable training and evaluation pipeline is still being developed.
+
+## Quick start
+
+### Docker
+
+Build and run the complete application from the repository root:
+
+```powershell
+docker build -t ev-purchase-predictor .
+docker run --rm -p 8000:8000 ev-purchase-predictor
+```
+
+Open [http://localhost:8000](http://localhost:8000). The container serves the frontend and API from the same URL.
+
+### Local API and frontend
+
+```powershell
+conda create -n ev-purchase python=3.11
+conda activate ev-purchase
+python -m pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The API also provides interactive documentation at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+
+## API endpoints
+
+| Endpoint | Method | Purpose |
+| --- | --- | --- |
+| `/` | `GET` | Serves the prediction frontend |
+| `/health` | `GET` | Returns service and model health |
+| `/predict` | `POST` | Returns an EV purchase prediction |
+| `/docs` | `GET` | Opens Swagger API documentation |
+
+The `/predict` request includes customer age, income, commute distance, vehicle ownership, charging access, environmental concern, gender, city type, car type, home charging, range anxiety, and subsidy availability. `Range_Anxiety_Level` accepts `Low`, `Medium`, or `High`.
 
 ## Contents
 
-- [Purpose and goals](#purpose-and-goals)
-- [Progress](#progress)
-- [Modeling work and recorded results](#modeling-work-and-recorded-results)
-- [Dataset](#dataset)
-- [Repository structure](#repository-structure)
-- [Setup and notebook usage](#setup-and-notebook-usage)
-- [Pipeline design](#pipeline-design)
-- [Roadmap](#roadmap)
-- [Outputs](#outputs)
-- [License](#license)
 
 ## Purpose and goals
 
@@ -44,8 +69,9 @@ The goal is to develop the project from data exploration through model delivery:
 | Loading and logging utilities | Implemented | CSV loading with error logging; dated log files and console output |
 | Reusable ML pipeline | Scaffolded | The five `src/` modules currently contain responsibility outlines |
 | DVC and parameters | Planned | `dvc.yaml` and `params.yaml` contain placeholder comments |
-| Inference API and frontend | Planned | `main.py` and frontend files are placeholders |
-| Packaging and quality checks | Planned | Dockerfile is a placeholder; automated tests, CI/CD, and monitoring remain to be added |
+| Inference API and frontend | Implemented | FastAPI serves `/health`, `/predict`, Swagger docs, and the responsive frontend |
+| Container startup | Implemented | Docker starts Uvicorn on port `8000` and serves the frontend from the same origin |
+| Packaging and quality checks | In progress | Docker workflow is implemented; automated tests, CI/CD, and monitoring remain to be added |
 
 ## Modeling work and recorded results
 
@@ -53,12 +79,6 @@ The main experimental reference is [`notebook/model2_fixed.ipynb`](notebook/mode
 
 Work covered so far includes:
 
-- Numerical and categorical analysis, including skewness and relationships with the target.
-- Engineered features such as total charging availability, income multiplied by subsidy availability, charging availability per commute distance, and income per car.
-- Scaling, log transformations for selected numerical columns, and one-hot encoding.
-- SMOTE in the initial notebook; class weighting in the later XGBoost, CatBoost, and Random Forest experiments.
-- Five-fold stratified cross-validation, a stratified holdout split, and XGBoost tuning with `RandomizedSearchCV`.
-- CatBoost out-of-fold predictions, weighted probability blending, rank blending, and SHAP analysis.
 
 The following values are **saved notebook outputs**, not results from a fresh run or an automated benchmark:
 
@@ -84,10 +104,6 @@ Place the expected CSV files under `data/raw/`:
 
 **CSV files are ignored by Git.** They are present in the current local workspace, but a fresh clone needs the dataset supplied separately.
 
-- **Target:** `Will_Buy_EV`, stored as `Yes` / `No` in the raw training data.
-- **Identifier:** `id`, retained for output and excluded from model inputs.
-- **Numerical inputs:** `Age`, `Annual_Income_USD`, `Daily_Commute_km`, `Number_of_Cars_Owned`, `Charging_Stations_Near_Home`, `Charging_Stations_Near_Work`, and `Environmental_Concern_Level`.
-- **Categorical inputs:** `Gender`, `City_Type`, `Current_Car_Type`, `Home_Charging_Possible`, `Subsidy_Available`, and `Range_Anxiety_Level`.
 
 **Configuration follow-up:** The raw `Range_Anxiety_Level` field contains text labels, such as `Low`, while `DataConfig` currently lists it as numerical. Align that configuration with the data before using it to build the reusable preprocessing pipeline.
 
@@ -117,18 +133,18 @@ Place the expected CSV files under `data/raw/`:
 |   |-- data_loader.py        # CSV loading with logging and error handling
 |   `-- logger.py             # File and console logging
 |-- models/                   # Reserved for serialized models
-|-- frontend/                 # Placeholder HTML and CSS
-|-- main.py                   # Placeholder FastAPI entrypoint
+|-- frontend/                 # Prediction form and responsive styles
+|-- main.py                   # FastAPI API and frontend server
 |-- dvc.yaml                  # Placeholder pipeline definition
 |-- params.yaml               # Placeholder experiment parameters
-|-- Dockerfile                # Placeholder container definition
+|-- Dockerfile                # Uvicorn container startup
 |-- requirements.txt          # Core dependencies
 `-- LICENSE                   # MIT license
 ```
 
-## Setup and notebook usage
+## Notebook usage
 
-The current workflow runs through Jupyter notebooks. From the repository root, create an environment, for example with Conda:
+The notebooks contain the exploratory analysis and model experiments. After installing the API dependencies, install the additional notebook packages:
 
 ```powershell
 conda create -n ev-purchase python=3.10
@@ -157,7 +173,7 @@ The notebooks currently use `../data/train.csv` and `../data/test.csv`. Their ou
 
 Run cells in order. Cross-validation, hyperparameter search, and SHAP analysis can take substantial time on the full dataset.
 
-There is no executable training command or FastAPI endpoint yet; `main.py` contains only a placeholder comment.
+The notebook experiments are separate from the currently deployed inference path. The API loads the saved artifacts from `models/best_model.pkl` and `models/label_encoder.pkl`.
 
 ## Pipeline design
 
@@ -204,25 +220,23 @@ Preprocessing should be fitted within each training split and saved with the sel
 
 ### Next milestone: reproducible training
 
-- [ ] Align feature configuration with the raw schema, including `Range_Anxiety_Level`.
-- [ ] Implement ingestion and validation for required columns, missing values, and target labels.
-- [ ] Move duplicate removal, feature selection, and feature creation into `src/`.
-- [ ] Build a shared preprocessing and training pipeline with stratified validation.
-- [ ] Add a training command that produces model, metrics, and submission artifacts.
-- [ ] Pin dependencies and add focused data and pipeline tests.
+- [ ] Consolidate ingestion, manipulation, feature engineering, training, and evaluation into one executable command.
+- [ ] Add required-column and missing-value validation.
+- [ ] Pin dependency versions and add focused pipeline tests.
+
 
 ### Following milestone: versioning and serving
 
-- [ ] Define experiment settings in `params.yaml` and executable stages in `dvc.yaml`.
-- [ ] Track datasets, model versions, and experiment metrics.
-- [ ] Implement FastAPI prediction and health endpoints with input validation.
-- [ ] Connect the frontend form to the prediction API.
+- [ ] Complete the DVC stages and parameterized experiments.
+- [x] Implement FastAPI prediction and health endpoints with input validation.
+- [x] Connect the frontend form to the prediction API.
+
 
 ### Later milestone: deployment and maintenance
 
-- [ ] Implement the Docker build and service startup.
-- [ ] Add CI checks for the pipeline and API.
-- [ ] Add deployment automation, prediction logging, and data/model monitoring.
+- [x] Implement Docker build and service startup.
+- [ ] Add CI checks, deployment automation, and model monitoring.
+
 
 ## Outputs
 
@@ -232,7 +246,7 @@ Preprocessing should be fitted within each training split and saved with the sel
 | `notebook/catboost_info/` | Saved CatBoost experiment logs |
 | `logs/YYYY-MM-DD.log` | Created when the shared logging utility is used |
 | `data/processed/train_processed.csv` and `test_processed.csv` | Configured destinations; generation is planned |
-| `models/model.pkl` | Configured model destination; automated export is planned |
+| `models/best_model.pkl` and `models/label_encoder.pkl` | Loaded by the running FastAPI service |
 | `artifacts/metrics.json` | Configured metrics destination; automated export is planned |
 
 Submission files follow this schema:
