@@ -1,1 +1,218 @@
-# use to define the structure of the web app
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>EV Purchase Predictor</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<main class="shell">
+		<header class="topbar">
+			<a class="brand" href="./" aria-label="EV Purchase Predictor home">
+				<span class="brand-mark">EV</span>
+				<span>Purchase Predictor</span>
+			</a>
+			<div class="api-status" id="apiStatus" data-state="checking">
+				<span class="status-dot" aria-hidden="true"></span>
+				<span id="apiStatusText">Checking API</span>
+			</div>
+		</header>
+
+		<section class="intro">
+			<p class="eyebrow">XGBoost classification model</p>
+			<h1>Will this customer<br><em>make the switch?</em></h1>
+			<p class="intro-copy">Enter a few customer details to estimate their likelihood of purchasing an electric vehicle.</p>
+		</section>
+
+		<section class="workspace">
+			<form class="prediction-form" id="predictionForm">
+				<div class="form-heading">
+					<div>
+						<p class="section-label">Customer profile</p>
+						<h2>Tell us about the driver</h2>
+					</div>
+					<span class="required-note">* Required</span>
+				</div>
+
+				<div class="form-grid">
+					<label class="field">
+						<span>Age <b>*</b></span>
+						<input name="Age" type="number" min="18" max="100" value="35" required>
+						<small>18 to 100 years</small>
+					</label>
+					<label class="field">
+						<span>Annual income <b>*</b></span>
+						<div class="input-prefix"><i>$</i><input name="Annual_Income_USD" type="number" min="0" step="0.01" value="65000" required></div>
+						<small>USD per year</small>
+					</label>
+					<label class="field">
+						<span>Daily commute <b>*</b></span>
+						<div class="input-suffix"><input name="Daily_Commute_km" type="number" min="0" step="0.1" value="18" required><i>km</i></div>
+					</label>
+					<label class="field">
+						<span>Cars owned <b>*</b></span>
+						<input name="Number_of_Cars_Owned" type="number" min="0" value="1" required>
+					</label>
+					<label class="field">
+						<span>Stations near home <b>*</b></span>
+						<input name="Charging_Stations_Near_Home" type="number" min="0" value="3" required>
+					</label>
+					<label class="field">
+						<span>Stations near work <b>*</b></span>
+						<input name="Charging_Stations_Near_Work" type="number" min="0" value="5" required>
+					</label>
+					<label class="field">
+						<span>Environmental concern <b>*</b></span>
+						<select name="Environmental_Concern_Level" required>
+							<option value="1">1 - Low</option>
+							<option value="2">2</option>
+							<option value="3" selected>3 - Moderate</option>
+							<option value="4">4</option>
+							<option value="5">5 - High</option>
+						</select>
+					</label>
+					<label class="field">
+						<span>Range anxiety <b>*</b></span>
+						<select name="Range_Anxiety_Level" required>
+							<option value="Low">Low</option>
+							<option value="Medium" selected>Medium</option>
+							<option value="High">High</option>
+						</select>
+					</label>
+					<label class="field">
+						<span>Gender <b>*</b></span>
+						<select name="Gender" required>
+							<option value="Male" selected>Male</option>
+							<option value="Female">Female</option>
+						</select>
+					</label>
+					<label class="field">
+						<span>City type <b>*</b></span>
+						<select name="City_Type" required>
+							<option value="Urban">Urban</option>
+							<option value="Suburban" selected>Suburban</option>
+							<option value="Rural">Rural</option>
+						</select>
+					</label>
+					<label class="field">
+						<span>Current car type <b>*</b></span>
+						<select name="Current_Car_Type" required>
+							<option value="Sedan" selected>Sedan</option>
+							<option value="SUV">SUV</option>
+							<option value="Hatchback">Hatchback</option>
+						</select>
+					</label>
+					<div class="field-group">
+						<span class="field-group-label">Home charging possible <b>*</b></span>
+						<div class="segmented-control">
+							<label><input type="radio" name="Home_Charging_Possible" value="Yes" checked><span>Yes</span></label>
+							<label><input type="radio" name="Home_Charging_Possible" value="No"><span>No</span></label>
+						</div>
+					</div>
+					<div class="field-group">
+						<span class="field-group-label">Subsidy available <b>*</b></span>
+						<div class="segmented-control">
+							<label><input type="radio" name="Subsidy_Available" value="Yes"><span>Yes</span></label>
+							<label><input type="radio" name="Subsidy_Available" value="No" checked><span>No</span></label>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-actions">
+					<p id="formMessage" class="form-message" role="alert"></p>
+					<button class="submit-button" type="submit"><span>Run prediction</span><span aria-hidden="true">&#8594;</span></button>
+				</div>
+			</form>
+
+			<aside class="result-panel" id="resultPanel" aria-live="polite">
+				<div class="result-topline"><span class="section-label">Prediction result</span><span class="result-icon">+</span></div>
+				<div class="result-empty" id="resultEmpty">
+					<div class="pulse-mark">EV</div>
+					<h2>Your result<br>will appear here.</h2>
+					<p>Complete the profile and run the model to see the predicted purchase outcome.</p>
+				</div>
+				<div class="result-content" id="resultContent" hidden>
+					<p class="result-kicker">Predicted outcome</p>
+					<h2 id="predictionLabel">Likely to buy</h2>
+					<div class="probability-row"><span>Purchase probability</span><strong id="probabilityValue">0%</strong></div>
+					<div class="progress-track"><span id="probabilityBar"></span></div>
+					<p class="result-note" id="resultNote"></p>
+					<button class="secondary-button" type="button" id="resetButton">Try another profile <span aria-hidden="true">&#8634;</span></button>
+				</div>
+				<div class="result-loading" id="resultLoading" hidden><span class="spinner"></span><p>Running the model...</p></div>
+			</aside>
+		</section>
+
+		<footer><span>Powered by the EV Purchase Prediction API</span><span>Model v1.0</span></footer>
+	</main>
+
+	<script>
+		const API_URL = window.location.protocol === "file:" || window.location.port === "5500"
+			? "http://localhost:8000"
+			: "";
+		const form = document.getElementById("predictionForm");
+		const resultEmpty = document.getElementById("resultEmpty");
+		const resultContent = document.getElementById("resultContent");
+		const resultLoading = document.getElementById("resultLoading");
+		const formMessage = document.getElementById("formMessage");
+
+		function setApiStatus(healthy) {
+			const status = document.getElementById("apiStatus");
+			status.dataset.state = healthy ? "online" : "offline";
+			document.getElementById("apiStatusText").textContent = healthy ? "API online" : "API offline";
+		}
+
+		fetch(`${API_URL}/health`).then(response => {
+			if (!response.ok) throw new Error();
+			setApiStatus(true);
+		}).catch(() => setApiStatus(false));
+
+		form.addEventListener("submit", async (event) => {
+			event.preventDefault();
+			formMessage.textContent = "";
+			resultEmpty.hidden = true;
+			resultContent.hidden = true;
+			resultLoading.hidden = false;
+
+			const values = Object.fromEntries(new FormData(form));
+			const numericFields = ["Age", "Annual_Income_USD", "Daily_Commute_km", "Number_of_Cars_Owned", "Charging_Stations_Near_Home", "Charging_Stations_Near_Work", "Environmental_Concern_Level"];
+			numericFields.forEach(field => values[field] = Number(values[field]));
+
+			try {
+				const response = await fetch(`${API_URL}/predict`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(values)
+				});
+				setApiStatus(true);
+				const data = await response.json();
+				if (!response.ok) throw new Error(data.detail || "The prediction could not be completed.");
+
+				const probability = Number(data.probability_of_buying_ev) * 100;
+				document.getElementById("predictionLabel").textContent = data.prediction === "Yes" ? "Likely to buy" : "Unlikely to buy";
+				document.getElementById("probabilityValue").textContent = `${probability.toFixed(1)}%`;
+				document.getElementById("probabilityBar").style.width = `${probability}%`;
+				document.getElementById("resultNote").textContent = data.prediction === "Yes" ? "This profile shows a positive likelihood of EV adoption." : "This profile shows a lower likelihood of EV adoption.";
+				resultContent.hidden = false;
+				setApiStatus(true);
+			} catch (error) {
+				resultEmpty.hidden = false;
+				formMessage.textContent = error.message || "Unable to connect to the prediction API.";
+			} finally {
+				resultLoading.hidden = true;
+			}
+		});
+
+		document.getElementById("resetButton").addEventListener("click", () => {
+			resultContent.hidden = true;
+			resultEmpty.hidden = false;
+			formMessage.textContent = "";
+			form.scrollIntoView({ behavior: "smooth", block: "start" });
+		});
+	</script>
+</body>
+</html>
