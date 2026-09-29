@@ -2,6 +2,8 @@
 data loader: 
     1. load data from csv files
 """
+from pathlib import Path
+
 import pandas as pd
 from utils.logger import get_logger
 
@@ -12,7 +14,7 @@ class data_loader:
     def __init__(self):
         pass
 
-    def csv_load(self, path: str):
+    def csv_load(self, path: str | Path):
         
         try:
             logger.info("data loading started")

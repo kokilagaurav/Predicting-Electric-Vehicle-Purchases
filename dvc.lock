@@ -5,31 +5,70 @@ stages:
     deps:
     - path: configs/data_configs.py
       hash: md5
-      md5: 80061e3e3e563d3df38d3db928424aea
-      size: 1036
-      isexec: true
+      md5: c45f31a8f59fc485ca531546b3b58657
+      size: 2241
     - path: data/raw/test.csv
       hash: md5
       md5: 561b4fa0ab35149606a0591f24209931
       size: 18298347
-      isexec: true
     - path: data/raw/train.csv
       hash: md5
       md5: 57201b1bef73bc87476ac6d4a157d170
       size: 44707646
-      isexec: true
     - path: src/data_ingestion.py
       hash: md5
-      md5: 7d0492a952f290223a0f362cbec9ae27
-      size: 776
-      isexec: true
+      md5: d08c805316b3c649805ed82612426a55
+      size: 3028
     - path: utils/data_loader.py
       hash: md5
-      md5: e719faf58e3d925e63b324a41f147696
-      size: 608
-      isexec: true
+      md5: 11ee8d419b7df3c04dc9ecdff45b6ba3
+      size: 643
     - path: utils/logger.py
       hash: md5
       md5: 62119f6ded04213749ebf90b10ae7434
       size: 735
-      isexec: true
+    outs:
+    - path: data/interim/ingested_test.csv
+      hash: md5
+      md5: aac1f55cbc4b2d26a5f8f4d5680c983e
+      size: 18584919
+    - path: data/interim/ingested_train.csv
+      hash: md5
+      md5: 17f1a483fb7141039603b5afbb84d8b5
+      size: 45376312
+  feature_engineering:
+    cmd: python -m src.feature_engineering
+    deps:
+    - path: configs/data_configs.py
+      hash: md5
+      md5: c45f31a8f59fc485ca531546b3b58657
+      size: 2241
+    - path: data/interim/ingested_test.csv
+      hash: md5
+      md5: aac1f55cbc4b2d26a5f8f4d5680c983e
+      size: 18584919
+    - path: data/interim/ingested_train.csv
+      hash: md5
+      md5: 17f1a483fb7141039603b5afbb84d8b5
+      size: 45376312
+    - path: src/feature_engineering.py
+      hash: md5
+      md5: edcdd9a74623bf03476425e172cb7a3a
+      size: 6550
+    - path: utils/data_loader.py
+      hash: md5
+      md5: 11ee8d419b7df3c04dc9ecdff45b6ba3
+      size: 643
+    - path: utils/logger.py
+      hash: md5
+      md5: 62119f6ded04213749ebf90b10ae7434
+      size: 735
+    outs:
+    - path: data/interim/test.csv
+      hash: md5
+      md5: db6aaf8b7f03b9b8e8ff4f6b9b45a033
+      size: 35244722
+    - path: data/interim/train.csv
+      hash: md5
+      md5: 01f99f6d16a6c4202025292e034d7d3a
+      size: 84257395

@@ -1,0 +1,24 @@
+2026-09-29 16:42:58,186 - __main__ - INFO - Data ingestion started
+2026-09-29 16:42:58,187 - __main__ - INFO - Loading training data from: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\raw\train.csv
+2026-09-29 16:42:58,187 - utils.data_loader - INFO - data loading started
+2026-09-29 16:42:58,700 - utils.data_loader - INFO - data loading complete, shape :(668665, 15)
+2026-09-29 16:42:58,700 - __main__ - INFO - Training data loaded successfully. Shape: (668665, 15)
+2026-09-29 16:42:58,701 - __main__ - INFO - Loading testing data from: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\raw\test.csv
+2026-09-29 16:42:58,701 - utils.data_loader - INFO - data loading started
+2026-09-29 16:42:58,945 - utils.data_loader - INFO - data loading complete, shape :(286571, 14)
+2026-09-29 16:42:58,945 - __main__ - INFO - Testing data loaded successfully. Shape: (286571, 14)
+2026-09-29 16:43:01,152 - __main__ - INFO - Ingested training data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\interim\ingested_train.csv
+2026-09-29 16:43:02,075 - __main__ - INFO - Ingested testing data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\interim\ingested_test.csv
+2026-09-29 16:43:02,075 - __main__ - INFO - Data ingestion completed successfully
+2026-09-29 16:45:03,618 - __main__ - INFO - Feature engineering started
+2026-09-29 16:45:03,618 - utils.data_loader - INFO - data loading started
+2026-09-29 16:45:04,231 - utils.data_loader - INFO - data loading complete, shape :(668665, 15)
+2026-09-29 16:45:04,232 - __main__ - INFO - Train data loaded. Shape: (668665, 15)
+2026-09-29 16:45:04,232 - utils.data_loader - INFO - data loading started
+2026-09-29 16:45:04,468 - utils.data_loader - INFO - data loading complete, shape :(286571, 14)
+2026-09-29 16:45:04,469 - __main__ - INFO - Test data loaded. Shape: (286571, 14)
+2026-09-29 16:45:04,795 - __main__ - INFO - Train data after feature engineering: (668665, 25)
+2026-09-29 16:45:04,795 - __main__ - INFO - Test data after feature engineering: (286571, 24)
+2026-09-29 16:45:09,489 - __main__ - INFO - Feature engineered train data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\interim\train.csv
+2026-09-29 16:45:11,452 - __main__ - INFO - Feature engineered test data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\interim\test.csv
+2026-09-29 16:45:11,452 - __main__ - INFO - Feature engineering completed successfully

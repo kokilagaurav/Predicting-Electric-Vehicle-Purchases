@@ -1,16 +1,34 @@
-# it has configration of dvc pipeline and stages of the project
-
-
 stages:
 
   data_ingestion:
+
     cmd: python -m src.data_ingestion
 
     deps:
+      - data/raw/train.csv
+      - data/raw/test.csv
       - src/data_ingestion.py
       - utils/data_loader.py
       - utils/logger.py
       - configs/data_configs.py
-      - data/raw/train.csv
-      - data/raw/test.csv
 
+    outs:
+      - data/interim/ingested_train.csv
+      - data/interim/ingested_test.csv
+
+
+  feature_engineering:
+
+    cmd: python -m src.feature_engineering
+
+    deps:
+      - data/interim/ingested_train.csv
+      - data/interim/ingested_test.csv
+      - src/feature_engineering.py
+      - utils/data_loader.py
+      - utils/logger.py
+      - configs/data_configs.py
+
+    outs:
+      - data/interim/train.csv
+      - data/interim/test.csv
