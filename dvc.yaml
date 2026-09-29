@@ -53,3 +53,24 @@ stages:
     outs:
       - data/processed/train_processed.csv
       - data/processed/test_processed.csv
+
+
+  model_training:
+
+    cmd: python -m src.model_training
+
+    deps:
+      - data/processed/train_processed.csv
+      - src/model_training.py
+      - utils/data_loader.py
+      - utils/logger.py
+      - utils/params_loader.py
+      - configs/data_configs.py
+      - configs/model_configs.py
+
+    params:
+      - model_training
+
+    outs:
+      - models/model.pkl
+      - models/label_encoder.pkl

@@ -40,3 +40,55 @@
 2026-09-29 16:50:04,623 - __main__ - INFO - Final train shape: (668665, 21)
 2026-09-29 16:50:04,623 - __main__ - INFO - Final test shape: (286571, 20)
 2026-09-29 16:50:04,623 - __main__ - INFO - Data manipulation completed successfully
+2026-09-29 16:57:52,634 - __main__ - INFO - Feature engineering started
+2026-09-29 16:57:52,634 - utils.data_loader - INFO - data loading started
+2026-09-29 16:57:53,176 - utils.data_loader - INFO - data loading complete, shape :(668665, 15)
+2026-09-29 16:57:53,176 - __main__ - INFO - Train data loaded. Shape: (668665, 15)
+2026-09-29 16:57:53,176 - utils.data_loader - INFO - data loading started
+2026-09-29 16:57:53,392 - utils.data_loader - INFO - data loading complete, shape :(286571, 14)
+2026-09-29 16:57:53,393 - __main__ - INFO - Test data loaded. Shape: (286571, 14)
+2026-09-29 16:57:53,695 - __main__ - INFO - Train data after feature engineering: (668665, 27)
+2026-09-29 16:57:53,695 - __main__ - INFO - Test data after feature engineering: (286571, 26)
+2026-09-29 16:57:58,870 - __main__ - INFO - Feature engineered train data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\interim\train.csv
+2026-09-29 16:58:01,044 - __main__ - INFO - Feature engineered test data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\interim\test.csv
+2026-09-29 16:58:01,045 - __main__ - INFO - Feature engineering completed successfully
+2026-09-29 16:58:02,283 - utils.params_loader - INFO - Loading parameters from params.yaml
+2026-09-29 16:58:02,288 - utils.params_loader - INFO - Parameters loaded successfully
+2026-09-29 16:58:02,288 - __main__ - INFO - Data manipulation started
+2026-09-29 16:58:02,288 - utils.data_loader - INFO - data loading started
+2026-09-29 16:58:03,342 - utils.data_loader - INFO - data loading complete, shape :(668665, 27)
+2026-09-29 16:58:03,342 - utils.data_loader - INFO - data loading started
+2026-09-29 16:58:03,784 - utils.data_loader - INFO - data loading complete, shape :(286571, 26)
+2026-09-29 16:58:03,785 - __main__ - INFO - Train data shape before manipulation: (668665, 27)
+2026-09-29 16:58:03,785 - __main__ - INFO - Test data shape before manipulation: (286571, 26)
+2026-09-29 16:58:03,785 - __main__ - INFO - Dropping train features: ['Will_Buy_EV_num', 'Home_Charging_Possible', 'Subsidy_Available', 'No_Home_Charging', 'Gender']
+2026-09-29 16:58:03,830 - __main__ - INFO - Dropping test features: ['Home_Charging_Possible', 'Subsidy_Available', 'No_Home_Charging', 'Gender']
+2026-09-29 16:58:04,228 - __main__ - INFO - Duplicate rows found in train data: 0
+2026-09-29 16:58:04,640 - __main__ - INFO - Removed 0 duplicate rows
+2026-09-29 16:58:09,367 - __main__ - INFO - Processed training data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\processed\train_processed.csv
+2026-09-29 16:58:11,360 - __main__ - INFO - Processed testing data saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\data\processed\test_processed.csv
+2026-09-29 16:58:11,360 - __main__ - INFO - Final train shape: (668665, 23)
+2026-09-29 16:58:11,361 - __main__ - INFO - Final test shape: (286571, 22)
+2026-09-29 16:58:11,362 - __main__ - INFO - Data manipulation completed successfully
+2026-09-29 16:58:13,844 - utils.params_loader - INFO - Loading parameters from params.yaml
+2026-09-29 16:58:13,849 - utils.params_loader - INFO - Parameters loaded successfully
+2026-09-29 16:58:13,849 - __main__ - INFO - Model training started
+2026-09-29 16:58:13,850 - utils.data_loader - INFO - data loading started
+2026-09-29 16:58:14,713 - utils.data_loader - INFO - data loading complete, shape :(668665, 23)
+2026-09-29 16:58:14,713 - __main__ - INFO - Processed training data loaded. Shape: (668665, 23)
+2026-09-29 16:58:14,780 - __main__ - INFO - ID column removed from model features
+2026-09-29 16:58:14,781 - __main__ - INFO - Feature data shape: (668665, 21)
+2026-09-29 16:58:14,868 - __main__ - INFO - Target classes: ['No', 'Yes']
+2026-09-29 16:58:15,180 - __main__ - INFO - X_train shape: (534932, 21)
+2026-09-29 16:58:15,180 - __main__ - INFO - X_test shape: (133733, 21)
+2026-09-29 16:58:15,181 - __main__ - INFO - Creating model preprocessing pipeline
+2026-09-29 16:58:15,205 - __main__ - INFO - Numerical columns: ['Age', 'Annual_Income_USD', 'Daily_Commute_km', 'Number_of_Cars_Owned', 'Charging_Stations_Near_Home', 'Charging_Stations_Near_Work', 'Environmental_Concern_Level', 'Subsidy_flag', 'Home_Charging_flag', 'total_Charging_Availability', 'Income_x_Subsidy', 'EnvironmentalConcern_x_Subsidy', 'NoHomeCharging_x_NearHomeStations', 'Charging_Per_Commute', 'Commute_x_TotalCharging', 'Income_x_EnvironmentalConcern', 'Income_per_Car']
+2026-09-29 16:58:15,205 - __main__ - INFO - Categorical columns: ['City_Type', 'Current_Car_Type', 'Range_Anxiety_Level', 'City_HomeCharging']
+2026-09-29 16:58:15,206 - __main__ - INFO - Skewed columns: ['Number_of_Cars_Owned', 'Charging_Stations_Near_Home', 'Charging_Stations_Near_Work']
+2026-09-29 16:58:15,206 - __main__ - INFO - Normal numerical columns: ['Age', 'Annual_Income_USD', 'Daily_Commute_km', 'Environmental_Concern_Level', 'Subsidy_flag', 'Home_Charging_flag', 'total_Charging_Availability', 'Income_x_Subsidy', 'EnvironmentalConcern_x_Subsidy', 'NoHomeCharging_x_NearHomeStations', 'Charging_Per_Commute', 'Commute_x_TotalCharging', 'Income_x_EnvironmentalConcern', 'Income_per_Car']
+2026-09-29 16:58:15,206 - __main__ - INFO - Model pipeline created successfully
+2026-09-29 16:58:15,206 - __main__ - INFO - Training XGBoost model
+2026-09-29 16:58:24,444 - __main__ - INFO - XGBoost model training completed
+2026-09-29 16:58:24,464 - __main__ - INFO - Model saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\models\model.pkl
+2026-09-29 16:58:24,467 - __main__ - INFO - Label encoder saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\models\label_encoder.pkl
+2026-09-29 16:58:24,467 - __main__ - INFO - Model training completed successfully

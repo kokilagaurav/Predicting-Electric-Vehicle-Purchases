@@ -53,8 +53,8 @@ stages:
       size: 45376312
     - path: src/feature_engineering.py
       hash: md5
-      md5: edcdd9a74623bf03476425e172cb7a3a
-      size: 6550
+      md5: b6704376ec735c8f91f4974c5217e699
+      size: 6842
     - path: utils/data_loader.py
       hash: md5
       md5: 11ee8d419b7df3c04dc9ecdff45b6ba3
@@ -66,12 +66,12 @@ stages:
     outs:
     - path: data/interim/test.csv
       hash: md5
-      md5: db6aaf8b7f03b9b8e8ff4f6b9b45a033
-      size: 35244722
+      md5: 9a27166685e28c8bf7a70d43da3aa532
+      size: 40928813
     - path: data/interim/train.csv
       hash: md5
-      md5: 01f99f6d16a6c4202025292e034d7d3a
-      size: 84257395
+      md5: 379543daac4f95b17bbc47ab077d3788
+      size: 97515989
   data_manipulation:
     cmd: python -m src.data_manipulation
     deps:
@@ -81,12 +81,12 @@ stages:
       size: 2241
     - path: data/interim/test.csv
       hash: md5
-      md5: db6aaf8b7f03b9b8e8ff4f6b9b45a033
-      size: 35244722
+      md5: 9a27166685e28c8bf7a70d43da3aa532
+      size: 40928813
     - path: data/interim/train.csv
       hash: md5
-      md5: 01f99f6d16a6c4202025292e034d7d3a
-      size: 84257395
+      md5: 379543daac4f95b17bbc47ab077d3788
+      size: 97515989
     - path: src/data_manipulation.py
       hash: md5
       md5: 332c6929373e6dcb86abec4568fce594
@@ -121,9 +121,76 @@ stages:
     outs:
     - path: data/processed/test_processed.csv
       hash: md5
-      md5: 031de492013822b4ef5ab0efa1c27fa9
-      size: 30404714
+      md5: 8339df6df002a1662779bc3b32ec1f29
+      size: 36055569
     - path: data/processed/train_processed.csv
       hash: md5
-      md5: aae2681c8e1151846793fcbbdfabb65d
-      size: 72963389
+      md5: 2cbb60ce6e6440029cca6b93a7b285db
+      size: 86145281
+  model_training:
+    cmd: python -m src.model_training
+    deps:
+    - path: configs/data_configs.py
+      hash: md5
+      md5: c45f31a8f59fc485ca531546b3b58657
+      size: 2241
+    - path: configs/model_configs.py
+      hash: md5
+      md5: 3f7711b16ede62e13a78b597aa2e42c4
+      size: 1207
+    - path: data/processed/train_processed.csv
+      hash: md5
+      md5: 2cbb60ce6e6440029cca6b93a7b285db
+      size: 86145281
+    - path: src/model_training.py
+      hash: md5
+      md5: a90076348239a33a92d9522a5289d7d4
+      size: 11987
+    - path: utils/data_loader.py
+      hash: md5
+      md5: 11ee8d419b7df3c04dc9ecdff45b6ba3
+      size: 643
+    - path: utils/logger.py
+      hash: md5
+      md5: 62119f6ded04213749ebf90b10ae7434
+      size: 735
+    - path: utils/params_loader.py
+      hash: md5
+      md5: 277f6b5e02168384d3acddd6c266c08f
+      size: 816
+    params:
+      params.yaml:
+        model_training:
+          split:
+            test_size: 0.2
+            random_state: 42
+            stratify: true
+          preprocessing:
+            skewed_columns:
+            - Number_of_Cars_Owned
+            - Charging_Stations_Near_Home
+            - Charging_Stations_Near_Work
+          xgboost:
+            n_estimators: 400
+            max_depth: 4
+            learning_rate: 0.08
+            min_child_weight: 10
+            gamma: 0.3
+            subsample: 0.8
+            colsample_bytree: 0.9
+            reg_alpha: 0.1
+            reg_lambda: 3
+            scale_pos_weight: 4.73
+            objective: binary:logistic
+            eval_metric: auc
+            random_state: 42
+            n_jobs: -1
+    outs:
+    - path: models/label_encoder.pkl
+      hash: md5
+      md5: 04b236635725167244ed8e5494adb99a
+      size: 537
+    - path: models/model.pkl
+      hash: md5
+      md5: 2adbb4ac231445cb05797b1cf737e0ef
+      size: 671695

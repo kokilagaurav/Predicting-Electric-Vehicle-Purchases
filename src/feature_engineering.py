@@ -139,6 +139,16 @@ class FeatureEngineering:
             * data["total_Charging_Availability"]
         )
 
+        data["Income_x_EnvironmentalConcern"] = (
+            data["Annual_Income_USD"]
+            * data["Environmental_Concern_Level"]
+        )
+
+        data["Income_per_Car"] = (
+            data["Annual_Income_USD"]
+            / (data["Number_of_Cars_Owned"] + 1)
+        )
+
 
         return data
 
