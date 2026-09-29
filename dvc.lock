@@ -136,8 +136,8 @@ stages:
       size: 2241
     - path: configs/model_configs.py
       hash: md5
-      md5: 3f7711b16ede62e13a78b597aa2e42c4
-      size: 1207
+      md5: 8e942b60cba12b059d8613d8389780ff
+      size: 1669
     - path: data/processed/train_processed.csv
       hash: md5
       md5: 2cbb60ce6e6440029cca6b93a7b285db
@@ -194,3 +194,132 @@ stages:
       hash: md5
       md5: 2adbb4ac231445cb05797b1cf737e0ef
       size: 671695
+  model_evaluation:
+    cmd: python -m src.model_evaluation
+    deps:
+    - path: configs/data_configs.py
+      hash: md5
+      md5: c45f31a8f59fc485ca531546b3b58657
+      size: 2241
+    - path: configs/model_configs.py
+      hash: md5
+      md5: 8e942b60cba12b059d8613d8389780ff
+      size: 1669
+    - path: data/processed/test_processed.csv
+      hash: md5
+      md5: 8339df6df002a1662779bc3b32ec1f29
+      size: 36055569
+    - path: data/processed/train_processed.csv
+      hash: md5
+      md5: 2cbb60ce6e6440029cca6b93a7b285db
+      size: 86145281
+    - path: models/label_encoder.pkl
+      hash: md5
+      md5: 04b236635725167244ed8e5494adb99a
+      size: 537
+    - path: models/model.pkl
+      hash: md5
+      md5: 2adbb4ac231445cb05797b1cf737e0ef
+      size: 671695
+    - path: src/model_evaluation.py
+      hash: md5
+      md5: 57a4d6007a55d09d82edb33837ea3b0f
+      size: 18958
+    - path: utils/data_loader.py
+      hash: md5
+      md5: 11ee8d419b7df3c04dc9ecdff45b6ba3
+      size: 643
+    - path: utils/logger.py
+      hash: md5
+      md5: 62119f6ded04213749ebf90b10ae7434
+      size: 735
+    - path: utils/params_loader.py
+      hash: md5
+      md5: 277f6b5e02168384d3acddd6c266c08f
+      size: 816
+    params:
+      params.yaml:
+        model_evaluation:
+          cross_validation:
+            n_splits: 5
+            shuffle: true
+            random_state: 42
+          hyperparameter_tuning:
+            n_iter: 25
+            scoring: roc_auc
+            random_state: 42
+            n_jobs: -1
+            verbose: 2
+            n_estimators:
+            - 200
+            - 300
+            - 400
+            - 500
+            - 700
+            max_depth:
+            - 2
+            - 3
+            - 4
+            - 5
+            learning_rate:
+            - 0.01
+            - 0.02
+            - 0.03
+            - 0.05
+            - 0.08
+            min_child_weight:
+            - 3
+            - 5
+            - 8
+            - 10
+            - 15
+            gamma:
+            - 0
+            - 0.1
+            - 0.2
+            - 0.3
+            - 0.5
+            subsample:
+            - 0.6
+            - 0.7
+            - 0.8
+            - 0.9
+            colsample_bytree:
+            - 0.6
+            - 0.7
+            - 0.8
+            - 0.9
+            reg_alpha:
+            - 0
+            - 0.1
+            - 0.3
+            - 0.5
+            - 1
+            reg_lambda:
+            - 1
+            - 2
+            - 3
+            - 5
+            - 8
+            - 10
+        model_training.split:
+          test_size: 0.2
+          random_state: 42
+          stratify: true
+    outs:
+    - path: artifacts/best_params.json
+      hash: md5
+      md5: f9ac1fd0befbdfb12363cb345114dfb1
+      size: 269
+    - path: artifacts/metrics.json
+      hash: md5
+      md5: c4ff205592f4716fe4d405dcdd547920
+      size: 758
+    - path: artifacts/submission.csv
+      hash: md5
+      md5: 974c0187f7ef0518b83ebbe1ca36626a
+      size: 5553589
+    - path: models/best_model.pkl
+      hash: md5
+      md5: 8cac377a3c3c88df15a2d6676e8786a4
+      size: 674855

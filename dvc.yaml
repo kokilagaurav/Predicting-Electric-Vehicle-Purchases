@@ -74,3 +74,36 @@ stages:
     outs:
       - models/model.pkl
       - models/label_encoder.pkl
+
+
+  model_evaluation:
+
+    cmd: python -m src.model_evaluation
+
+    deps:
+      - data/processed/train_processed.csv
+      - data/processed/test_processed.csv
+
+      - models/model.pkl
+      - models/label_encoder.pkl
+
+      - src/model_evaluation.py
+
+      - utils/data_loader.py
+      - utils/logger.py
+      - utils/params_loader.py
+
+      - configs/data_configs.py
+      - configs/model_configs.py
+
+    params:
+      - model_training.split
+      - model_evaluation
+
+    outs:
+      - models/best_model.pkl
+      - artifacts/best_params.json
+      - artifacts/submission.csv
+
+    metrics:
+      - artifacts/metrics.json

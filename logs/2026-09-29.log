@@ -92,3 +92,55 @@
 2026-09-29 16:58:24,464 - __main__ - INFO - Model saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\models\model.pkl
 2026-09-29 16:58:24,467 - __main__ - INFO - Label encoder saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\models\label_encoder.pkl
 2026-09-29 16:58:24,467 - __main__ - INFO - Model training completed successfully
+2026-09-29 17:03:19,307 - utils.params_loader - INFO - Loading parameters from params.yaml
+2026-09-29 17:03:19,314 - utils.params_loader - INFO - Parameters loaded successfully
+2026-09-29 17:03:19,314 - __main__ - INFO - Model training started
+2026-09-29 17:03:19,314 - utils.data_loader - INFO - data loading started
+2026-09-29 17:03:20,340 - utils.data_loader - INFO - data loading complete, shape :(668665, 23)
+2026-09-29 17:03:20,340 - __main__ - INFO - Processed training data loaded. Shape: (668665, 23)
+2026-09-29 17:03:20,414 - __main__ - INFO - ID column removed from model features
+2026-09-29 17:03:20,414 - __main__ - INFO - Feature data shape: (668665, 21)
+2026-09-29 17:03:20,503 - __main__ - INFO - Target classes: ['No', 'Yes']
+2026-09-29 17:03:20,894 - __main__ - INFO - X_train shape: (534932, 21)
+2026-09-29 17:03:20,894 - __main__ - INFO - X_test shape: (133733, 21)
+2026-09-29 17:03:20,894 - __main__ - INFO - Creating model preprocessing pipeline
+2026-09-29 17:03:20,921 - __main__ - INFO - Numerical columns: ['Age', 'Annual_Income_USD', 'Daily_Commute_km', 'Number_of_Cars_Owned', 'Charging_Stations_Near_Home', 'Charging_Stations_Near_Work', 'Environmental_Concern_Level', 'Subsidy_flag', 'Home_Charging_flag', 'total_Charging_Availability', 'Income_x_Subsidy', 'EnvironmentalConcern_x_Subsidy', 'NoHomeCharging_x_NearHomeStations', 'Charging_Per_Commute', 'Commute_x_TotalCharging', 'Income_x_EnvironmentalConcern', 'Income_per_Car']
+2026-09-29 17:03:20,921 - __main__ - INFO - Categorical columns: ['City_Type', 'Current_Car_Type', 'Range_Anxiety_Level', 'City_HomeCharging']
+2026-09-29 17:03:20,921 - __main__ - INFO - Skewed columns: ['Number_of_Cars_Owned', 'Charging_Stations_Near_Home', 'Charging_Stations_Near_Work']
+2026-09-29 17:03:20,921 - __main__ - INFO - Normal numerical columns: ['Age', 'Annual_Income_USD', 'Daily_Commute_km', 'Environmental_Concern_Level', 'Subsidy_flag', 'Home_Charging_flag', 'total_Charging_Availability', 'Income_x_Subsidy', 'EnvironmentalConcern_x_Subsidy', 'NoHomeCharging_x_NearHomeStations', 'Charging_Per_Commute', 'Commute_x_TotalCharging', 'Income_x_EnvironmentalConcern', 'Income_per_Car']
+2026-09-29 17:03:20,921 - __main__ - INFO - Model pipeline created successfully
+2026-09-29 17:03:20,921 - __main__ - INFO - Training XGBoost model
+2026-09-29 17:03:29,854 - __main__ - INFO - XGBoost model training completed
+2026-09-29 17:03:29,878 - __main__ - INFO - Model saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\models\model.pkl
+2026-09-29 17:03:29,880 - __main__ - INFO - Label encoder saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\models\label_encoder.pkl
+2026-09-29 17:03:29,880 - __main__ - INFO - Model training completed successfully
+2026-09-29 17:03:31,659 - utils.params_loader - INFO - Loading parameters from params.yaml
+2026-09-29 17:03:31,667 - utils.params_loader - INFO - Parameters loaded successfully
+2026-09-29 17:03:31,667 - __main__ - INFO - Model evaluation started
+2026-09-29 17:03:31,675 - utils.data_loader - INFO - data loading started
+2026-09-29 17:03:32,498 - utils.data_loader - INFO - data loading complete, shape :(668665, 23)
+2026-09-29 17:03:32,498 - __main__ - INFO - Processed train data loaded. Shape: (668665, 23)
+2026-09-29 17:03:32,498 - utils.data_loader - INFO - data loading started
+2026-09-29 17:03:32,873 - utils.data_loader - INFO - data loading complete, shape :(286571, 22)
+2026-09-29 17:03:32,873 - __main__ - INFO - Processed test data loaded. Shape: (286571, 22)
+2026-09-29 17:03:33,640 - __main__ - INFO - Model loaded from: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\models\model.pkl
+2026-09-29 17:03:33,813 - __main__ - INFO - Evaluation feature shape: (668665, 21)
+2026-09-29 17:03:35,393 - __main__ - INFO - Train ROC-AUC: 0.9437129220198448
+2026-09-29 17:03:35,393 - __main__ - INFO - Holdout ROC-AUC: 0.9415095728219625
+2026-09-29 17:03:35,393 - __main__ - INFO - Train-Test AUC difference: 0.0022033491978823427
+2026-09-29 17:03:35,393 - __main__ - INFO - Starting cross-validation
+2026-09-29 17:04:16,103 - __main__ - INFO - CV fold scores: [0.940584358254724, 0.9414706553068879, 0.9427415677244602, 0.9424177282109887, 0.9418581182545454]
+2026-09-29 17:04:16,104 - __main__ - INFO - Mean CV ROC-AUC: 0.9418144855503211
+2026-09-29 17:04:16,104 - __main__ - INFO - CV standard deviation: 0.000755872909662209
+2026-09-29 17:04:16,104 - __main__ - INFO - Hyperparameter tuning started
+2026-09-29 17:14:00,858 - __main__ - INFO - Hyperparameter tuning completed
+2026-09-29 17:14:00,860 - __main__ - INFO - Best CV ROC-AUC: 0.9417829847919605
+2026-09-29 17:14:00,860 - __main__ - INFO - Best parameters: {'xgb__subsample': 0.8, 'xgb__reg_lambda': 3, 'xgb__reg_alpha': 0.1, 'xgb__n_estimators': 400, 'xgb__min_child_weight': 10, 'xgb__max_depth': 4, 'xgb__learning_rate': 0.08, 'xgb__gamma': 0.3, 'xgb__colsample_bytree': 0.9}
+2026-09-29 17:14:02,339 - __main__ - INFO - Tuned Train ROC-AUC: 0.9437129220198448
+2026-09-29 17:14:02,339 - __main__ - INFO - Tuned Holdout ROC-AUC: 0.9415095728219625
+2026-09-29 17:14:02,339 - __main__ - INFO - Tuned Train-Test difference: 0.0022033491978823427
+2026-09-29 17:14:02,339 - __main__ - INFO - Training best model on full dataset
+2026-09-29 17:14:10,707 - __main__ - INFO - Best model saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\models\best_model.pkl
+2026-09-29 17:14:11,639 - __main__ - INFO - Submission saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\artifacts\submission.csv
+2026-09-29 17:14:11,640 - __main__ - INFO - Metrics saved at: C:\Users\gaura\Downloads\personal-project\Predicting-Electric-Vehicle-Purchases\artifacts\metrics.json
+2026-09-29 17:14:11,640 - __main__ - INFO - Model evaluation completed successfully

@@ -16,6 +16,17 @@ Contains:
     4. Label encoder path
     5. Metrics output path
 """
+"""
+Model configurations.
+
+Contains paths for:
+    1. Trained model
+    2. Tuned/best model
+    3. Label encoder
+    4. Evaluation metrics
+    5. Best hyperparameters
+    6. Submission file
+"""
 
 from pathlib import Path
 
@@ -25,19 +36,19 @@ class ModelConfig:
     BASE_DIR = Path(__file__).resolve().parent.parent
 
     MODEL_NAME = "xgboost"
-
     MODEL_TYPE = "classification"
 
-
     # --------------------------------
-    # Model directory
+    # Directories
     # --------------------------------
 
     MODEL_DIR = BASE_DIR / "models"
 
+    ARTIFACT_DIR = BASE_DIR / "artifacts"
+
 
     # --------------------------------
-    # Trained model
+    # Model paths
     # --------------------------------
 
     MODEL_PATH = (
@@ -45,9 +56,14 @@ class ModelConfig:
         / "model.pkl"
     )
 
+    BEST_MODEL_PATH = (
+        MODEL_DIR
+        / "best_model.pkl"
+    )
+
 
     # --------------------------------
-    # Target label encoder
+    # Encoder
     # --------------------------------
 
     LABEL_ENCODER_PATH = (
@@ -57,11 +73,20 @@ class ModelConfig:
 
 
     # --------------------------------
-    # Evaluation metrics
+    # Evaluation artifacts
     # --------------------------------
 
     METRICS_PATH = (
-        BASE_DIR
-        / "artifacts"
+        ARTIFACT_DIR
         / "metrics.json"
+    )
+
+    BEST_PARAMS_PATH = (
+        ARTIFACT_DIR
+        / "best_params.json"
+    )
+
+    SUBMISSION_PATH = (
+        ARTIFACT_DIR
+        / "submission.csv"
     )
